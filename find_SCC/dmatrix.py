@@ -21,3 +21,13 @@ class DMatrix():
 
     def transpose():
         self.graph.transpose()
+
+    def order(order):
+
+        pass
+
+    def access(x, y):
+        pass
+
+    def size(direction = 'h'):
+        pass
