@@ -19,15 +19,15 @@ class DMatrix():
         self.graph = csr_matrix(coo)
         # self.graph = csc_matrix(coo)
 
-    def transpose():
+    def transpose(self):
         self.graph.transpose()
 
-    def order(order):
+    def order(self, order):
 
         pass
 
-    def access(x, y):
+    def access(self, x, y):
         pass
 
-    def size(direction = 'h'):
+    def size(self, direction = 'h'):
         pass
