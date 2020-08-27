@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.sparse import csr_matrix, coo_matrix
-from scipy.sparse.csgraph import connected_components
+from scipy.sparse.csgraph import connected_components, dijkstra
 def read_file():
     lenght = (int)(863705  / 8)
     tn = np.ndarray(shape=(lenght), dtype=np.uint8)
