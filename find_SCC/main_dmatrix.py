@@ -4,8 +4,7 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 from dmatrix import DMatrix
 import sys
-sys.setrecursionlimit(1000000)
-graph = DMatrix()
+import time
 
 #very self explanatory
 def reverse_graph(graph):
@@ -34,7 +33,7 @@ def dfs_loop(graph, nodes):
             # graph is the graph, i is the number of the node in order from start to end, explored is the explored nodes, order is the order it goes in(only useful for first run)
             # print('next parent')
             vl = dfs(graph, h, explored)
-            # print("vl:", h, len(vl), vl)
+            print("vl:", h, len(vl), end='\r', flush=True)
             visited.extend(vl)
             SCC_size = len(visited) - t_pre
             SCC.append(SCC_size)
@@ -117,6 +116,9 @@ def compute_scc(graph):
 
 # Press the green button in the gutter to run the script.
 
+start_time = time.time()
+sys.setrecursionlimit(1000000)
+graph = DMatrix()
 
 result = compute_scc(graph)
 result.sort()
@@ -127,3 +129,5 @@ count = 1
 while count <= 7 and count <= resultLen:
    print(result[-count])
    count = count + 1
+elapsed_time = time.time() - start_time
+print("elapsed_time", time.strftime("%H:%M:%S"), time.gmtime(elapsed_time))
