@@ -12,7 +12,6 @@ graph = DMatrix()
 #very self explanatory
 def reverse_graph(graph):
     graph.transpose()
-
     return graph
 
 #loop to run dfs biggest loop
@@ -20,7 +19,7 @@ def reverse_graph(graph):
 def dfs_loop(graph, nodes):
 # t is the ordering of the nodes(heads) for the second loop through
     global c
-    c = 0
+    c = 1
 # explored marks the already explored nodes so we don't explore them twice
     explored = [0] * (graph.size() + 1)
 #SCC marks the size of all the SCCs discovered (only useful for second run)
@@ -48,33 +47,32 @@ def dfs(graph, i, explored, order):
     # t is the ordering of the nodes(heads) for the second loop through
     global c
     global stack
+    visited = []
     h = i
     if(explored[h] == 1): return
-    explored[h] = 1
+  
     stack.append(h)
-    while(len(stack) >0) :
-        # print("h:tails:", h, graph.gettails(h))
-        allTailExplored = False
-        while(len(graph.gettails(h)) > 0 and not allTailExplored):
-            # print(h, graph.gettails(h))
-            allTailExplored = True
-            for t in graph.gettails(h):
-                if explored[t] == 0:
-                    explored[t] = 1
-                    # print(explored)
-                    stack.append(t)
-                    allTailExplored = False
-                    # print("push:s:", t, stack)
-                    # dfs(graph, j, explored, order)
-            h = stack[len(stack)-1]
-            #calculates t
-        
-        order[h] = c
-        # print('order', order)
-        c += 1
+
+    while stack :
         h = stack.pop()
-        
-        # print("pop:s:", h, c, stack)
+        print("pop:s:", h, explored[h] , stack)        
+        if( explored[h] == 0 ):
+            explored[h] = 1 
+            stack.append(h)
+            print("h:tails:", h, graph.gettails(h))
+            for t in graph.gettails(h):
+                if(explored[t] == 0):
+                    stack.append(t)
+            # dfs(graph, j, explored, order)
+        else:
+            visited.append(h)
+            print("visited:",h, visited)
+
+        for h in visited:  
+            order[h] = c
+            c += 1
+        visited.clear()
+    print('order', order)
         
 
 
@@ -85,15 +83,15 @@ def dfs(graph, i, explored, order):
 
 def compute_scc(graph):
     # Use a breakpoint in the code line below to debug your script.
-    #graph.printout()
-    # print('')
+    graph.printout()
+    print('')
     graph = reverse_graph(graph)  # Press Ctrl+F8 to toggle the breakpoint.
-    #graph.printout()
-    order = list(range(graph.size()))
+    graph.printout()
+    order = list(range(1, graph.size() + 1))
     order.reverse()
     order, temp = dfs_loop(graph, order)
     graph = reverse_graph(graph)
-    #graph.printout()
+    graph.printout()
 
     useless, SCC = dfs_loop(graph, order)
 
@@ -106,5 +104,5 @@ def compute_scc(graph):
 result = compute_scc(graph)
 
 result.sort()
-for i in range(5):
+while result:
    print(result.pop())
