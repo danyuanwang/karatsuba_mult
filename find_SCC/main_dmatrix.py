@@ -56,6 +56,7 @@ def dfs(graph, i, explored):
     # t is the ordering of the nodes(heads) for the second loop through
     stack = []
     visited = []
+    visitedFlag = [0] * (graph.size() + 1)
     h = i
     if(explored[h] == 1): return visited
   
@@ -73,7 +74,9 @@ def dfs(graph, i, explored):
                     stack.append(t)
             # dfs(graph, j, explored, order)
         else:
-            visited.append(h)
+            if(visitedFlag[h] == 0):
+                visitedFlag[h] = 1
+                visited.append(h)
             #print("visited:",h, visited)
     
     return visited
