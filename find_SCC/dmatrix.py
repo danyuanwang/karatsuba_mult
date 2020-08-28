@@ -6,7 +6,7 @@ class DMatrix():
         self.graph = {}
         self.order_v = []
         self.size_ = 0
-        # handle = open('Find_SCC_data.txt')
+        # handle = open('test_data.txt')
         handle = open('Find_SCC_data.txt')
         for line in handle:
             t ,h  = [int(float(v)) for v in line.split()]    

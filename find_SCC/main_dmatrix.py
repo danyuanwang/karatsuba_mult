@@ -24,7 +24,7 @@ def dfs_loop(graph, nodes):
     order = [0] * (graph.size())
     visited = []
 #loops through nodes, only stop at the nearest unexplored node 
-    print("node:",len(nodes))
+    #print("node:",len(nodes))
     for h in nodes:
         #print(h,len(explored))
         if explored[h] == 0:
@@ -34,7 +34,7 @@ def dfs_loop(graph, nodes):
             # graph is the graph, i is the number of the node in order from start to end, explored is the explored nodes, order is the order it goes in(only useful for first run)
             # print('next parent')
             visited.extend(dfs(graph, h, explored))
-            print(visited)
+            #print(visited)
 
             SCC_size = len(visited) - t_pre
             SCC.append(SCC_size)
@@ -43,7 +43,7 @@ def dfs_loop(graph, nodes):
         order[h - 1] = c
         c += 1
     visited.clear()
-    print('order', order)
+    #print('order', order)
 
     return order, SCC
 
@@ -77,6 +77,13 @@ def dfs(graph, i, explored):
         
 
 
+def proccess_order(order):
+    new_order = [0] * len(order)
+    for i in range(1, len(order) + 1):
+        #print(order[i - 1])
+        new_order[-(order[i - 1])] = i
+    
+    return new_order
 
 
 
@@ -92,11 +99,11 @@ def compute_scc(graph):
     order.reverse()
     
     order, temp = dfs_loop(graph, order)
-    # print(order)
+    #print(order)
     graph = reverse_graph(graph)
     # graph.printout()
-    order.reverse()
-    print('order final', order)
+    order = proccess_order(order)
+    #print('order final', order)
     useless, SCC = dfs_loop(graph, order)
 
     return SCC
@@ -108,9 +115,9 @@ def compute_scc(graph):
 result = compute_scc(graph)
 result.sort()
 
-print(result)
+#print(result)
 resultLen = len(result) 
 count = 1
-while count <= 5 and count < resultLen:
-   print(result[resultLen - count])
+while count <= 7 and count <= resultLen:
+   print(result[-count])
    count = count + 1
