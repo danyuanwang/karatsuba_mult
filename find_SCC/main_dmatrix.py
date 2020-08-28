@@ -34,7 +34,7 @@ def dfs_loop(graph, nodes):
             # graph is the graph, i is the number of the node in order from start to end, explored is the explored nodes, order is the order it goes in(only useful for first run)
             # print('next parent')
             vl = dfs(graph, h, explored)
-            print("vl:", h, len(vl), vl)
+            # print("vl:", h, len(vl), vl)
             visited.extend(vl)
             SCC_size = len(visited) - t_pre
             SCC.append(SCC_size)
@@ -94,17 +94,17 @@ def proccess_order(order):
 
 def compute_scc(graph):
     # Use a breakpoint in the code line below to debug your script.
-    graph.printout()
-    print('')
+    # graph.printout()
+    # print('')
     graph = reverse_graph(graph)  # Press Ctrl+F8 to toggle the breakpoint.
-    graph.printout()
+    # graph.printout()
     order = list(range(1, graph.size() + 1))
     order.reverse()
     
     order, temp = dfs_loop(graph, order)
     #print(order)
     graph = reverse_graph(graph)
-    graph.printout()
+    # graph.printout()
     order = proccess_order(order)
     #print('order final', order)
     useless, SCC = dfs_loop(graph, order)
