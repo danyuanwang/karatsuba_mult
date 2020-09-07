@@ -6,3 +6,4 @@ venv_t
 venv*/
 *.swp
 *.txt
+.idea
