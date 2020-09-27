@@ -12,7 +12,8 @@ class heap_min(heap):
         else:
             self.n += 1
             self.q[self.n] = key
-            self.bubble_up(key)
+            #print(self.n, key)
+            self.bubble_up(self.n)
         
 
     def extract_root(self):

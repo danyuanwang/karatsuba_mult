@@ -11,7 +11,7 @@ class heap_max(heap):
         else:
             self.n += 1
             self.q[self.n] = key
-            self.bubble_up(key)
+            self.bubble_up(self.n)
         
 
     def extract_root(self):
