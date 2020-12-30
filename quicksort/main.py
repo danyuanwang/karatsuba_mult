@@ -8,6 +8,7 @@ def extract_file():
     print(handle)
     list = []
     for line in handle:
+        
         list.append(float(line))
     return list
 
