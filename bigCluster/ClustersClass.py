@@ -18,6 +18,7 @@ class Clusters():
         if cluster1 == cluster2:
             return False
         self.cluster[cluster1] = cluster2
+        self.cluster[edge[0]] = cluster2
         self.clusterCount -= 1
         return True
 #input a string repersenting a node

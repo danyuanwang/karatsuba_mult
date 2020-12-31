@@ -3,9 +3,14 @@ import time
 
 empty = (2<< 31) - 1
 noparent = (2<< 31) - 2
+def combineNote(n1, n2):
+    return (n1<<32) + n2
+def decombineNodes(n):
+    return [n>>32,n&0xffffffff]
+
 class Edges():
     def __init__(self, data, dataSpace):
-        self.edges = [[], [], []]
+        self.edges = [set(), set(), set()]
         self.data = data
         self.dataSpace = dataSpace
         nodeFinished = 0
@@ -35,7 +40,7 @@ class Edges():
     def shortestEdge(self):
         for edgeGroup in self.edges:
             if len(edgeGroup) > 0:
-                return edgeGroup.pop()
+                return decombineNodes(edgeGroup.pop())
 
     def hammingDist(self, node1, node2):
         count = 0
@@ -60,7 +65,7 @@ class Edges():
                 h= self.hammingDist(nodeNew1,node1)
                 if(h!=1):
                     print("ERROR:hammingDist should be 1", bin(nodeNew1),bin(node1), h)
-                self.edges[0].append([nodeNew1, node1])
+                self.edges[0].add(combineNote(nodeNew1, node1))
 
             flip2 = flip1
             for j in range(1, 24 - i):
@@ -72,7 +77,7 @@ class Edges():
                         h= self.hammingDist(nodeNew1,node1)
                         if(h!=1):
                             print("ERROR:hammingDist should be 2", bin(nodeNew1),bin(node1), h)
-                        self.edges[1].append([nodeNew2, node1])
+                        self.edges[1].add(combineNote(nodeNew2, node1))
 
                     flip3 = flip2
                     for h in range(1, 24 - j - i):
@@ -85,4 +90,4 @@ class Edges():
                                 h= self.hammingDist(nodeNew1,node1)
                                 if(h!=1):
                                     print("ERROR:hammingDist should be 3", bin(nodeNew1),bin(node1), h)
-                                self.edges[2].append([nodeNew3, node1])
+                                self.edges[2].add(combineNote(nodeNew3, node1))
