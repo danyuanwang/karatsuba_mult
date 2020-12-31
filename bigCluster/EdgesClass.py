@@ -1,8 +1,8 @@
 import time
 
 
-empty = 2^ 31 - 1
-noparent = 2^ 31 - 2
+empty = 2** 31 - 1
+noparent = 2** 31 - 2
 class Edges():
     def __init__(self, data, dataSpace):
         self.edges = [[], [], []]

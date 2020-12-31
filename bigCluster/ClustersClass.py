@@ -1,7 +1,7 @@
 import array
 import sys
-empty = 2^ 31 - 1
-noparent = 2^ 31 - 2
+empty = 2** 31 - 1
+noparent = 2** 31 - 2
 
 class Clusters():
 
@@ -18,6 +18,7 @@ class Clusters():
         if cluster1 == cluster2:
             return False
         self.cluster[cluster1] = cluster2
+        self.cluster[edge[0]] =  cluster2
         self.clusterCount -= 1
         return True
 #input a string repersenting a node

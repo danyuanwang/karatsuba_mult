@@ -2,8 +2,8 @@ from ClustersClass import Clusters
 from EdgesClass import Edges
 import array
 import sys
-EMPTY = 2^ 31 - 1
-NOPARENT = 2^ 31 - 2
+EMPTY = 2** 31 - 1
+NOPARENT = 2** 31 - 2
 
 def calculateBigClusters(dataFile):
 
