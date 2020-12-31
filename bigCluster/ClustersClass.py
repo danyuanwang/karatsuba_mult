@@ -1,7 +1,7 @@
 import array
 import sys
-empty = 2^ 31 - 1
-noparent = 2^ 31 - 2
+empty = (2<< 31) - 1
+noparent = (2<< 31) - 2
 
 class Clusters():
 

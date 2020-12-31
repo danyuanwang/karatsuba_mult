@@ -1,8 +1,8 @@
 import time
 
 
-empty = 2^ 31 - 1
-noparent = 2^ 31 - 2
+empty = (2<< 31) - 1
+noparent = (2<< 31) - 2
 class Edges():
     def __init__(self, data, dataSpace):
         self.edges = [[], [], []]
@@ -35,7 +35,7 @@ class Edges():
     def shortestEdge(self):
         for edgeGroup in self.edges:
             if len(edgeGroup) > 0:
-                return edgeGroup.pop(0)
+                return edgeGroup.pop()
 
     def hammingDist(self, node1, node2):
         count = 0
@@ -57,7 +57,9 @@ class Edges():
             #print(nodeNew1)
             #print("nodeNew1", nodeNew1)
             if self.dataSpace[nodeNew1] != empty:
-                #print("placed11")
+                h= self.hammingDist(nodeNew1,node1)
+                if(h!=1):
+                    print("ERROR:hammingDist should be 1", bin(nodeNew1),bin(node1), h)
                 self.edges[0].append([nodeNew1, node1])
 
             flip2 = flip1
@@ -67,7 +69,9 @@ class Edges():
                     nodeNew2 = nodeNew1 ^ flip2
                     
                     if self.dataSpace[nodeNew2] != empty:
-                        #print("placed222222222222222222222222222")
+                        h= self.hammingDist(nodeNew1,node1)
+                        if(h!=1):
+                            print("ERROR:hammingDist should be 2", bin(nodeNew1),bin(node1), h)
                         self.edges[1].append([nodeNew2, node1])
 
                     flip3 = flip2
@@ -78,5 +82,7 @@ class Edges():
                             
                             #print(nodeNew3)
                             if self.dataSpace[nodeNew3] != empty:
-                                #print("placed333333333333333333333333333333333333333333333333333333333333")
+                                h= self.hammingDist(nodeNew1,node1)
+                                if(h!=1):
+                                    print("ERROR:hammingDist should be 3", bin(nodeNew1),bin(node1), h)
                                 self.edges[2].append([nodeNew3, node1])

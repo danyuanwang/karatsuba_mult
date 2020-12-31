@@ -2,15 +2,16 @@ from ClustersClass import Clusters
 from EdgesClass import Edges
 import array
 import sys
-EMPTY = 2^ 31 - 1
-NOPARENT = 2^ 31 - 2
+import time
+empty = (2<< 31) - 1
+noparent = (2<< 31) - 2
 
 def calculateBigClusters(dataFile):
 
     cluster = array.array('I')
-    cluster.extend((EMPTY,) * (1<<24))
+    cluster.extend((empty,) * (1<<24))
     data = array.array('I')
-    data.extend((EMPTY,) * 200000)
+    data.extend((empty,) * 200000)
 
     handle = open(dataFile)
     flag = True
@@ -21,21 +22,26 @@ def calculateBigClusters(dataFile):
             continue
         number = int(line.strip().replace(' ', ''), 2)
         #list = [float(v) for v in line.split()]
-        cluster[number] = NOPARENT
+        cluster[number] = noparent
 
         data[count]=number
         count+=1
-    print("finished Cluster Initializaton")
 
     clusters = Clusters(cluster)
     edgeList = Edges(data, cluster)
-    #print(edgeList.edges[0])
-    #print(edgeList.edges[1])
-    #print(edgeList.edges[2])
+    print("len(edgeList.edges[0])",len(edgeList.edges[0]))
+    print("len(edgeList.edges[1])",len(edgeList.edges[1]))
+    print("len(edgeList.edges[2])",len(edgeList.edges[2]))
     while len(edgeList.edges[2]) > 0:
+        startTime = time.time()
         shortestEdge = edgeList.shortestEdge()
+        shortestEdgeElapsed = time.time()-startTime
+
+        startTime = time.time()
         clusters.combine(shortestEdge)
-        print("clusters Remainging: ", clusters.clusterCount)
+        combineEdgeElapsed = time.time()-startTime
+
+        print("clusters Remainging: ", clusters.clusterCount, shortestEdgeElapsed, combineEdgeElapsed)
     return clusters.clusterCount
 
 print(calculateBigClusters("dataBigCluster.txt"))
