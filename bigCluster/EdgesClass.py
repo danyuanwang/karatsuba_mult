@@ -53,8 +53,7 @@ class Edges():
     def hammingCircle(self, node1):
 
         flip1 = 1
-        for i in range(1, 24):
-            
+        for i in range(1, 25):         
             nodeNew1 = node1 ^ flip1
             #print("nodeNew1", bin(nodeNew1), bin(node1), bin(flip1))
             
@@ -70,8 +69,8 @@ class Edges():
                 #print("edge Found 1", bin(nodeNew1), bin(node1), combineNote(n1, n2), decombineNodes(combineNote(n1, n2)))
 
             flip2 = flip1 << 1
-            for j in range(1, 24 - i):
-                
+            for j in range(1, 25 - i):
+            
                 if flip1 != flip2:
                     nodeNew2 = nodeNew1 ^ flip2
                     #print("nodeNew2", bin(nodeNew2), bin(nodeNew1), bin(flip2))
@@ -82,12 +81,11 @@ class Edges():
                             print("ERROR:hammingDist should be 2", bin(nodeNew2),bin(node1), h)
                         n1= max(nodeNew2,node1)
                         n2 = min(nodeNew2,node1)
-                        self.edges[1].add(combineNote(n2, n1))
+                        self.edges[1].add(combineNote(n1, n2))
                         #print("edge Found 2", bin(nodeNew2), bin(node1), combineNote(n2, n1), decombineNodes(combineNote(n2, n1)))
-                
 
                     flip3 = flip2 << 1
-                    for c in range(1, 24 - j - i):
+                    for c in range(1, 25 - j - i):
                         if flip3 != flip1 and flip3 !=flip2:
                             nodeNew3 = nodeNew2 ^ flip3
                             #print("nodeNew3", bin(nodeNew3), bin(nodeNew2), bin(flip3))
@@ -98,7 +96,7 @@ class Edges():
                                     print("ERROR:hammingDist should be 3", bin(nodeNew3),bin(node1), h)
                                 n1= max(nodeNew3,node1)
                                 n2 = min(nodeNew3,node1)
-                                self.edges[2].add(combineNote(n2, n1))
+                                self.edges[2].add(combineNote(n1, n2))
                                 #print("edge Found 3", bin(nodeNew3), bin(node1), combineNote(n2, n1), decombineNodes(combineNote(n2, n1)))
                         flip3 <<= 1
                 flip2 <<= 1

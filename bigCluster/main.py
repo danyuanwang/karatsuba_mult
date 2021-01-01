@@ -31,7 +31,7 @@ def calculateBigClusters(dataFile):
     #print("len(edgeList.edges[0])",len(edgeList.edges[0]), edgeList.edges[0])
     #print("len(edgeList.edges[1])",len(edgeList.edges[1]), edgeList.edges[1])
     #print("len(edgeList.edges[2])",len(edgeList.edges[2]), edgeList.edges[2])
-    for i in range(3):
+    for i in range(2):
         while len(edgeList.edges[i]) > 0:
             startTime = time.time()
             shortestEdge = edgeList.shortestEdge()
