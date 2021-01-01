@@ -8,7 +8,7 @@ class Clusters():
 # input a file with data
     def __init__(self, cluster):
         self.cluster = cluster
-        self.clusterCount = 2000
+        self.clusterCount = 200000
         print("finished Cluster Initializaton")
 
 #input a edge consisting of a list with two strings representing nodes

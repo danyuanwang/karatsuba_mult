@@ -10,7 +10,7 @@ def calculateBigClusters(dataFile):
     cluster = array.array('I')
     cluster.extend((empty,) * (1<<24))
     data = array.array('I')
-    data.extend((empty,) * 2000)
+    data.extend((empty,) * 200000)
 
     handle = open(dataFile)
     flag = True
@@ -28,19 +28,20 @@ def calculateBigClusters(dataFile):
 
     clusters = Clusters(cluster)
     edgeList = Edges(data, cluster)
-    #print("len(edgeList.edges[0])",len(edgeList.edges[0]))
-    #print("len(edgeList.edges[1])",len(edgeList.edges[1]))
-    #print("len(edgeList.edges[2])",len(edgeList.edges[2]))
-    while len(edgeList.edges[1]) > 0:
-        startTime = time.time()
-        shortestEdge = edgeList.shortestEdge()
-        shortestEdgeElapsed = time.time()-startTime
+    #print("len(edgeList.edges[0])",len(edgeList.edges[0]), edgeList.edges[0])
+    #print("len(edgeList.edges[1])",len(edgeList.edges[1]), edgeList.edges[1])
+    #print("len(edgeList.edges[2])",len(edgeList.edges[2]), edgeList.edges[2])
+    for i in range(3):
+        while len(edgeList.edges[i]) > 0:
+            startTime = time.time()
+            shortestEdge = edgeList.shortestEdge()
+            shortestEdgeElapsed = time.time()-startTime
 
-        startTime = time.time()
-        clusters.combine(shortestEdge)
-        combineEdgeElapsed = time.time()-startTime
+            startTime = time.time()
+            clusters.combine(shortestEdge)
+            combineEdgeElapsed = time.time()-startTime
 
-        print("clusters Remainging: ", clusters.clusterCount, len(edgeList.edges[0]), len(edgeList.edges[1]), len(edgeList.edges[2]), shortestEdgeElapsed, combineEdgeElapsed)
+            print("clusters Remainging: ", clusters.clusterCount, len(edgeList.edges[0]), len(edgeList.edges[1]), len(edgeList.edges[2]), shortestEdgeElapsed, combineEdgeElapsed)
     return clusters.clusterCount
 
-print(calculateBigClusters("dataBigCluster2.txt"))
+print(calculateBigClusters("dataBigCluster.txt"))
