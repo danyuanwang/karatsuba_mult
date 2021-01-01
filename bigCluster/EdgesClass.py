@@ -20,7 +20,7 @@ class Edges():
             nodeFinished +=1
             timeElapsed = endTime - startTime
 
-            print(nodeFinished, timeElapsed)
+            print(nodeFinished, timeElapsed, end='\r', flush=True)
         
         print("Finished Edges Initialization")
         #for node1 in self.data:
