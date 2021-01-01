@@ -44,4 +44,6 @@ def calculateBigClusters(dataFile):
             print("clusters Remainging: ", clusters.clusterCount, len(edgeList.edges[0]), len(edgeList.edges[1]), len(edgeList.edges[2]), shortestEdgeElapsed, combineEdgeElapsed)
     return clusters.clusterCount
 
-print(calculateBigClusters("dataBigCluster.txt"))
+startTime = time.time()
+cluster = calculateBigClusters("dataBigCluster.txt")
+print(cluster, time.time()-startTime)

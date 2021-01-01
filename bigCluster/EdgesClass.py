@@ -53,7 +53,7 @@ class Edges():
     def hammingCircle(self, node1):
 
         flip1 = 1
-        for i in range(1, 5):
+        for i in range(1, 24):
             
             nodeNew1 = node1 ^ flip1
             #print("nodeNew1", bin(nodeNew1), bin(node1), bin(flip1))
@@ -70,7 +70,7 @@ class Edges():
                 #print("edge Found 1", bin(nodeNew1), bin(node1), combineNote(n1, n2), decombineNodes(combineNote(n1, n2)))
 
             flip2 = flip1 << 1
-            for j in range(1, 5 - i):
+            for j in range(1, 24 - i):
                 
                 if flip1 != flip2:
                     nodeNew2 = nodeNew1 ^ flip2
@@ -87,7 +87,7 @@ class Edges():
                 
 
                     flip3 = flip2 << 1
-                    for c in range(1, 5 - j - i):
+                    for c in range(1, 24 - j - i):
                         if flip3 != flip1 and flip3 !=flip2:
                             nodeNew3 = nodeNew2 ^ flip3
                             #print("nodeNew3", bin(nodeNew3), bin(nodeNew2), bin(flip3))
