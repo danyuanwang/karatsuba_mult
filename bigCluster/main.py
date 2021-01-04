@@ -31,7 +31,7 @@ def calculateBigClusters(dataFile):
     #print("len(edgeList.edges[0])",len(edgeList.edges[0]), edgeList.edges[0])
     #print("len(edgeList.edges[1])",len(edgeList.edges[1]), edgeList.edges[1])
     #print("len(edgeList.edges[2])",len(edgeList.edges[2]), edgeList.edges[2])
-    for i in range(3):
+    for i in range(2):
         while len(edgeList.edges[i]) > 0:
             startTime = time.time()
             shortestEdge = edgeList.shortestEdge()
@@ -41,7 +41,14 @@ def calculateBigClusters(dataFile):
             clusters.combine(shortestEdge)
             combineEdgeElapsed = time.time()-startTime
 
-            print("clusters Remainging: ", clusters.clusterCount, len(edgeList.edges[0]), len(edgeList.edges[1]), len(edgeList.edges[2]), shortestEdgeElapsed, combineEdgeElapsed, end='\r', flush=True)
+            print("clusters Remainging: ", clusters.clusterCount, len(edgeList.edges[0]), len(edgeList.edges[1]), len(edgeList.edges[2]), shortestEdgeElapsed, combineEdgeElapsed)
+    doubleCheck = 0
+    for i in range(len(cluster)):
+        if(cluster[i] == noparent):
+            #print("cluster:", i)
+            doubleCheck += 1
+    
+    print("double checked answer:", doubleCheck)
     return clusters.clusterCount
 
 startTime = time.time()
