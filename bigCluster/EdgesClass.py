@@ -58,7 +58,6 @@ class Edges():
             #print("nodeNew1", bin(nodeNew1), bin(node1), bin(flip1))
             
             #print(nodeNew1)
-            #print("nodeNew1", nodeNew1)
             if self.dataSpace[nodeNew1] != empty:
                 h= self.hammingDist(nodeNew1,node1)
                 if(h!=1):

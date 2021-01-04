@@ -6,9 +6,9 @@ noparent = (2<< 31) - 2
 class Clusters():
 
 # input a file with data
-    def __init__(self, cluster):
+    def __init__(self, cluster,count):
         self.cluster = cluster
-        self.clusterCount = 200000
+        self.clusterCount = count
         print("finished Cluster Initializaton")
 
 #input a edge consisting of a list with two strings representing nodes
