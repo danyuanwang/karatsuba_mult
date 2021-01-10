@@ -1,4 +1,4 @@
-import array
+
 empty = -1
 class Knapsack():
     def __init__(self):
