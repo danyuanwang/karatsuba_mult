@@ -11,42 +11,35 @@ class WIS():
                 flag = False
                 continue
             self.data.append(int(line))
-            
+        self.test=[1, 2, 3, 4, 17, 117, 517, 997]
+
     def findWIS(self, n):
+        if n in self.records:
+            return self.records[n]
+        max = None
         if n == 0:
-            self.records[0] = [self.data[0], 0]
-            return [self.data[0], 0]
-        if n == 1:
-            if self.data[0] > self.data[1]:
-                self.records[1] = [self.data[0], 0]
-                return [self.data[0], 0]
-            self.records[1] = [self.data[1], 1]
-            return [self.data[1], 1]
-        ExcludeW = None
-        IncludeW = None
-        #print("weights:", n, self.data[n])
-        if n-1 in self.records:
-            ExcludeW = self.records[n-1]
+            max = [self.data[n], n]
+        elif n == 1:
+            max = [self.data[0], 0] if self.data[0] > self.data[1] else [self.data[1], 1]
         else:
-            ExcludeW = self.findWIS(n-1)
-            self.records[n-1] = ExcludeW
+            include = [] + self.findWIS(n-2)
+            include[0] += self.data[n]
+            include.append(n)
 
-        if n-2 in self.records:
-            IncludeW = self.records[n-2]
-        else:
-            IncludeW = self.findWIS(n-2)
-            self.records[n-2] = IncludeW
-        
-        IncludeWTemp = []
-        for i in IncludeW:
-            IncludeWTemp.append(i)
-        IncludeWTemp[0] += self.data[n]
-        IncludeWTemp.append(n)
+            exclude = [] + self.findWIS(n-1)
 
-        if ExcludeW[0] > IncludeWTemp[0]:
+            max = exclude if exclude[0] > include[0] else include
 
-            #print("returned excluded", n, ExcludeW, self.records)
-            return ExcludeW
-        #print("returned included", n, IncludeW, self.records)
-        
-        return IncludeWTemp
+        self.records[n] = max
+        #print(n, max, self.records)
+
+        return max
+    
+    def testWIS(self, max_sum):
+        r = 0
+        c = 0
+        for t in self.test:
+            if self.test[c] in max_sum:
+                r+=(0x1<<c)
+            c+=1
+        return r
