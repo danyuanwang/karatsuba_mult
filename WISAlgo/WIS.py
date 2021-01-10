@@ -4,7 +4,7 @@ class WIS():
     def __init__(self):
         self.data = []
         self.records = {}
-        handle = open('data2.txt')
+        handle = open('data.txt')
         flag = True
         for line in handle:
             if flag:
@@ -13,17 +13,17 @@ class WIS():
             self.data.append(int(line))
     def findWIS(self, n):
         if n == 0:
-            self.records[n] = [self.data[n], n]
-            return [self.data[n], n]
+            self.records[0] = [self.data[0], 0]
+            return [self.data[0], 0]
         if n == 1:
             if self.data[0] > self.data[1]:
-                self.records[n] = [self.data[0], n-1]
-                return [self.data[0], n-1]
-            self.records[n] = [self.data[1], n]
-            return [self.data[1], n]
+                self.records[1] = [self.data[0], 0]
+                return [self.data[0], 0]
+            self.records[1] = [self.data[1], 1]
+            return [self.data[1], 1]
         ExcludeW = None
         IncludeW = None
-        print("weights:", n, self.data[n])
+        #print("weights:", n, self.data[n])
         if n-1 in self.records:
             ExcludeW = self.records[n-1]
         else:
@@ -35,13 +35,17 @@ class WIS():
         else:
             IncludeW = self.findWIS(n-2)
             self.records[n-2] = IncludeW
-        IncludeW[0] += self.data[n]
-        IncludeW.append(n)
+        
+        IncludeWTemp = []
+        for i in IncludeW:
+            IncludeWTemp.append(i)
+        IncludeWTemp[0] += self.data[n]
+        IncludeWTemp.append(n)
 
-        if ExcludeW[0] > IncludeW[0]:
-            self.records[n] = ExcludeW
-            print("returned excluded", n, ExcludeW, self.records)
+        if ExcludeW[0] > IncludeWTemp[0]:
+
+            #print("returned excluded", n, ExcludeW, self.records)
             return ExcludeW
-        self.records[n] = IncludeW
-        print("returned included", n, IncludeW, self.records)
-        return IncludeW
+        #print("returned included", n, IncludeW, self.records)
+        
+        return IncludeWTemp
