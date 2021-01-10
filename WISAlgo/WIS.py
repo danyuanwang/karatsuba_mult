@@ -11,6 +11,7 @@ class WIS():
                 flag = False
                 continue
             self.data.append(int(line))
+            
     def findWIS(self, n):
         if n == 0:
             self.records[0] = [self.data[0], 0]
