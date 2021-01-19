@@ -6,7 +6,7 @@ def decombineNodes(n):
     return [n>>32,n&0xffffffff]
 class Knapsack():
     def __init__(self):
-        handle = open('data.txt')
+        handle = open('databig.txt')
 
         self.data = [empty]
         self.instanceStorage = {}
