@@ -58,15 +58,18 @@ class Paths:
 
         if source == goal:
             print("exit", i, 0)
+            self.records[combineNode3(source, goal, i)] = 0
             return 0
 
         if i == 0:
             print("exit", i, maxInt)
+            self.records[combineNode3(source, goal, i)] = maxInt
             return maxInt
 
         if i == 1:
             if goal not in self.getNodeLinks(source):
                 print("exit", i, maxInt)
+                self.records[combineNode3(source, goal, i)] = maxInt
                 return maxInt
 
 
