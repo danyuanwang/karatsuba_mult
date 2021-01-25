@@ -10,6 +10,7 @@ class Paths:
     def __init__(self):
         self.records = {}
         self.data = {}
+        self.parents = {}
         self.nodeCount = 1000
         handle = open('test.txt')
         firstline = True
@@ -19,44 +20,78 @@ class Paths:
                 [self.nodeCount, self.edgeCount] = list
                 firstline = False
             else:
-                if list[0] in self.data:
-                    self.data[list[0]].append(list[1])
-                else:
-                    self.data[list[0]] = [list[1]]
+                if list[0] not in self.data:
+                    self.data[list[0]] = []
+
+                if list[0] not in self.parents:
+                    self.parents[list[0]] = []
+
+                if list[1] not in self.parents:
+                     self.parents[list[1]] = []
+
+                if list[1] not in self.data:
+                    self.data[list[1]] = []
+                self.data[list[0]].append(list[1])
+                self.parents[list[1]].append(list[0])
+                
                 self.records[combineNode3(list[0], list[1], 1)] = list[2]
+
+        print(self.records, self.data, self.parents)
                 
 
     def NodeShortest(self):
         shortest = maxInt
-        for source in range(len(self.data)):
+        for source in range(1, len(self.data) + 1):
             for i in range(self.nodeCount):
-                for node in range(len(self.data)):
+                for node in range(1, len(self.data) + 1):
                     answer = self.getShortestDist(source, node, i)
-                    self.records[source][node][i] = answer
-                    if shortest > answer:
+                    print(source, node, i, answer)
+                    self.records[combineNode3(source, node, i)] = answer
+                    if shortest > answer and answer > 0:
                         shortest = answer
         return shortest
     
     def getShortestDist(self, source, goal, i):
+        print("new layer", i)
+        if combineNode3(source, goal, i) in self.records:
+            return self.records[combineNode3(source, goal, i)]
+
         if source == goal:
+            print("exit", i, 0)
             return 0
+
         if i == 0:
+            print("exit", i, maxInt)
             return maxInt
+
+        if i == 1:
+            if goal not in self.getNodeLinks(source):
+                print("exit", i, maxInt)
+                return maxInt
+
 
         choice1 = self.getShortestDist(source, goal, i-1)
         
         choice2 = maxInt
-        nodeLinks = self.getNodeLinks(goal)
-        nodeLinks.remove(source)
+        nodeLinks = [] + self.getNodeParents(goal)
+        if source in nodeLinks:
+            nodeLinks.remove(source)
         for node in nodeLinks:
             temp0 = self.getShortestDist(goal, node, 1)
-            if temp0 != maxInt:
-                temp = self.getShortestDist(goal, node, i- 1) + temp0
-            else:
-                temp= maxInt
+            temp = self.getShortestDist(goal, node, i- 1) + temp0
             if temp < choice2:
                 temp = choice2
-        return min(choice1, choice2)
+        print("choices", choice1, choice2)
+        solution = min(choice1, choice2)
 
+        self.records[combineNode3(source, goal, i)] = solution
+        print("exit", i, solution)
+        return solution
+
+    def getNodeParents(self, goal):
+        #print("goal", goal)
+        return self.parents[goal]
+    
     def getNodeLinks(self, goal):
+        #print("goal children", goal)
         return self.data[goal]
