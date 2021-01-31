@@ -11,10 +11,5 @@ class CacheA:
         return self.cacheA[i * self.r + v]
 
     def SetToCache(self, i, v, value):
-        modified = False
-        original = self.GetFromCache(i, v)
-        if value < original:
-            self.cacheA[i * self.r + v] = value
-            modified = True
-        return modified
+        self.cacheA[i * self.r + v] = value
         

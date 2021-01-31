@@ -1,6 +1,7 @@
 import array
 from bfgraph import BFGraph, INFPATH 
 from cacheA import CacheA
+import time
 class BFPath:
     def __init__(self, graph):
         self.graph = graph
@@ -8,7 +9,8 @@ class BFPath:
     def GetShortestPathFrom(self, s):
         shortest = INFPATH
         cacheA =  CacheA(self.graph.GetNumOfEdge(), self.graph.GetNumOfNode())
-        n = self.graph.GetNumOfEdge() -1
+        n = self.graph.GetNumOfEdge() -1 
+        startTime = time.time()
         for i in range(n):
             stopEarly = True
             for v in self.graph.GetAllNodes():
@@ -21,12 +23,15 @@ class BFPath:
                     for w in self.graph.GetPrecedentNodes(v):
                         t = cacheA.GetFromCache(i-1,w) + self.graph.GetEdge(w, v)
                         if(shortest > t) : shortest = t
-                        cacheA.SetToCache(i,v,shortest)
+                    cacheA.SetToCache(i,v,shortest)
 
                 if(cacheA.GetFromCache(i,v) != cacheA.GetFromCache(i-1,v)) : 
                     stopEarly = False
-           
+                    
             if(stopEarly): break
+
+
+        print(time.time()-startTime, stopEarly, shortest)
         negativeCycledetected = False
         for v in self.graph.GetAllNodes():
             if(cacheA.GetFromCache(n,v) != cacheA.GetFromCache(n-1,v)):
@@ -42,7 +47,7 @@ class BFPath:
             t, negativeCycledetected = self.GetShortestPathFrom(s)
             if(shortest > t):
                 shortest = t
-            #break
+        print(s,shortest,negativeCycledetected)
         return shortest, negativeCycledetected
 
 
