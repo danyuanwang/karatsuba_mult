@@ -23,7 +23,7 @@ class BFGraph:
                 self.SetEdge(s, v, d)
                 self.SetEdge(s, s, 0)
                 self.SetEdge(v, v, 0)
-                if(v in self.nodes):
+                if(v in self.predecssors):
                     self.predecssors[v].append(s)
                 else:
                     self.predecssors[v] = [s]
