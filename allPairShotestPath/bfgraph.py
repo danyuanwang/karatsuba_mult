@@ -1,5 +1,5 @@
 import array
-INFPATH = 0x0FFFFFFF
+INFPATH = 0x00FFFFFF
 
 class BFGraph:
     def __init__(self, filename):
@@ -22,10 +22,10 @@ class BFGraph:
                 self.SetEdge(s, v, d)
                 self.SetEdge(s, s, 0)
                 self.SetEdge(v, v, 0)
-                if(s in self.nodes):
-                    self.nodes[s].append(v)
+                if(v in self.nodes):
+                    self.nodes[v].append(s)
                 else:
-                    self.nodes[s] = [v]
+                    self.nodes[v] = [s]
 
 
     def SetEdge(self, s, d, w):
@@ -45,5 +45,5 @@ class BFGraph:
     def GetAllNodes(self):
         return self.nodes
     
-    def GetAdjacentNodes(self, s):
-        return self.nodes[s]
+    def GetPrecedentNodes(self, v):
+        return self.nodes[v]

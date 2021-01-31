@@ -4,56 +4,46 @@ from cacheA import CacheA
 class BFPath:
     def __init__(self, graph):
         self.graph = graph
-        self.cacheA =  CacheA(self.graph.GetNumOfEdge(), self.graph.GetNumOfNode())
 
     def GetShortestPathFrom(self, s):
         shortest = INFPATH
+        cacheA =  CacheA(self.graph.GetNumOfEdge(), self.graph.GetNumOfNode())
+        n = self.graph.GetNumOfEdge() -1
+        for i in range(n):
+            stopEarly = True
+            for v in self.graph.GetAllNodes():
+                if(s == v): 
+                    cacheA.SetToCache(i,v,0)
+                elif(i == 0): 
+                    cacheA.SetToCache(i,v,INFPATH)
+                else:
+                    shortest=cacheA.GetFromCache(i-1,v)
+                    for w in self.graph.GetPrecedentNodes(v):
+                        t = cacheA.GetFromCache(i-1,w) + self.graph.GetEdge(w, v)
+                        if(shortest > t) : shortest = t
+                        cacheA.SetToCache(i,v,shortest)
+
+                if(cacheA.GetFromCache(i,v) != cacheA.GetFromCache(i-1,v)) : 
+                    stopEarly = False
+           
+            if(stopEarly): break
+        negativeCycledetected = False
         for v in self.graph.GetAllNodes():
-            if(s == v): continue
-            t, modified = self.GetShortestPathBetween(s,v,self.graph.GetNumOfEdge())
-            if(shortest > t):
-                shortest = t
-            if(modified):
-                print("modified")
+            if(cacheA.GetFromCache(n,v) != cacheA.GetFromCache(n-1,v)):
+                negativeCycledetected = True
                 break
-            #break
-        return shortest, modified
+        return shortest, negativeCycledetected
 
 
     def GetShortestPathOfAll(self):
         shortest = INFPATH
+        negativeCycledetected = False
         for s in self.graph.GetAllNodes():
-            t, modified = self.GetShortestPathFrom(s)
+            t, negativeCycledetected = self.GetShortestPathFrom(s)
             if(shortest > t):
                 shortest = t
-            if(modified):
-                print("modified")
-                break
             #break
-        return shortest, modified
+        return shortest, negativeCycledetected
 
-    def GetShortestPathBetween(self,s,v,i):
-        if(s == v): return INFPATH, False
-        if(i == 0): return INFPATH, False
-        shortest = self.cacheA.GetFromCache(s, v, i)
-        if(shortest <INFPATH): return shortest, False
-
-        shortest =  self.graph.GetEdge(s,v)
-        for w in self.graph.GetAdjacentNodes(s):
-            d = self.graph.GetEdge(s, w)
-            t = 0
-            if w != v:
-                t, temp3 = self.GetShortestPathBetween(w, v, i-1)
-            if(t < INFPATH and shortest > t + d):
-                shortest = t + d
-
-
-        t1, temp2 =  self.GetShortestPathBetween(s,v,i-1)
-        if(shortest > t1):
-            shortest = t1
-
-        modified = self.cacheA.SetToCache(s,v,i,shortest)
-            
-        return shortest, modified
 
 

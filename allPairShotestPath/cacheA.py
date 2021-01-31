@@ -2,20 +2,19 @@ import array
 from bfgraph import INFPATH 
 class CacheA:
     def __init__(self, m, n):
-        self.w = m + 1
-        self.h = n
-        self.l = n
+        self.c = m + 1
+        self.r = n
         self.cacheA = array.array('i')
-        self.cacheA.extend((INFPATH,) * self.w * self.h * self.l)
+        self.cacheA.extend((INFPATH,) * self.c * self.r)
 
-    def GetFromCache(self, s, v, i):
-        return self.cacheA[(v * self.w + i) * self.h + s]
+    def GetFromCache(self, i, v):
+        return self.cacheA[i * self.r + v]
 
-    def SetToCache(self, s, v, i, value):
+    def SetToCache(self, i, v, value):
         modified = False
-        original = self.GetFromCache(s, v, i)
-        if value != original:
-            self.cacheA[(v * self.w + i) * self.h + s] = value
+        original = self.GetFromCache(i, v)
+        if value < original:
+            self.cacheA[i * self.r + v] = value
             modified = True
         return modified
         
