@@ -1,9 +1,9 @@
 from paths import Paths
 from bfpath import BFPath
 from bfgraph import BFGraph
-graph = BFGraph('test.txt')
+graph = BFGraph('set1.txt')
 bfpath = BFPath(graph)
-answer=bfpath.GetShortestPathOfAll()
+answer, modified =bfpath.GetShortestPathOfAll()
 
 #Graph = Paths()
 #answer = Graph.NodeShortest()
