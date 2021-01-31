@@ -12,7 +12,7 @@ class Paths:
         self.data = {}
         self.parents = {}
         self.nodeCount = 1000
-        handle = open('test.txt')
+        handle = open('set1.txt')
         firstline = True
         for line in handle:
             list = [int(v) for v in line.split()]
@@ -42,33 +42,36 @@ class Paths:
     def NodeShortest(self):
         shortest = maxInt
         for source in range(1, len(self.data) + 1):
+            print(source)
             for i in range(self.nodeCount):
+                print("      ", i)
                 for node in range(1, len(self.data) + 1):
+                    print("           ", node)
                     answer = self.getShortestDist(source, node, i)
-                    print(source, node, i, answer)
+                    #print(source, node, i, answer)
                     self.records[combineNode3(source, node, i)] = answer
                     if shortest > answer and answer > 0:
                         shortest = answer
         return shortest
     
     def getShortestDist(self, source, goal, i):
-        print("new layer", i)
+        #print("new layer", i)
         if combineNode3(source, goal, i) in self.records:
             return self.records[combineNode3(source, goal, i)]
 
         if source == goal:
-            print("exit", i, 0)
+            #print("exit", i, 0)
             self.records[combineNode3(source, goal, i)] = 0
             return 0
 
         if i == 0:
-            print("exit", i, maxInt)
+            #print("exit", i, maxInt)
             self.records[combineNode3(source, goal, i)] = maxInt
             return maxInt
 
         if i == 1:
             if goal not in self.getNodeLinks(source):
-                print("exit", i, maxInt)
+                #print("exit", i, maxInt)
                 self.records[combineNode3(source, goal, i)] = maxInt
                 return maxInt
 
@@ -84,11 +87,11 @@ class Paths:
             temp = self.getShortestDist(goal, node, i- 1) + temp0
             if temp < choice2:
                 temp = choice2
-        print("choices", choice1, choice2)
+        #print("choices", choice1, choice2)
         solution = min(choice1, choice2)
 
         self.records[combineNode3(source, goal, i)] = solution
-        print("exit", i, solution)
+        #print("exit", i, solution)
         return solution
 
     def getNodeParents(self, goal):
