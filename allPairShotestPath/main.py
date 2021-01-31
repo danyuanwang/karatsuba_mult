@@ -2,7 +2,7 @@ from paths import Paths
 from bfpath import BFPath
 from bfgraph import BFGraph
 import time
-graph = BFGraph('g1.txt')
+graph = BFGraph('test.txt')
 bfpath = BFPath(graph)
 
 startTime = time.time()

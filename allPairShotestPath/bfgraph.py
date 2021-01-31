@@ -13,7 +13,8 @@ class BFGraph:
                 [self.nodeCount, self.edgeCount] = list
                 self.edges = array.array('i')
                 self.edges.extend((INFPATH,) * self.nodeCount * self.nodeCount)
-                self.nodes = {}
+                self.predecssors = {}
+                self.nodes = set()
                 firstline = False
             else:
                 s = list[0] - 1
@@ -23,9 +24,12 @@ class BFGraph:
                 self.SetEdge(s, s, 0)
                 self.SetEdge(v, v, 0)
                 if(v in self.nodes):
-                    self.nodes[v].append(s)
+                    self.predecssors[v].append(s)
                 else:
-                    self.nodes[v] = [s]
+                    self.predecssors[v] = [s]
+                self.nodes.add(s)
+                self.nodes.add(v)
+
 
 
     def SetEdge(self, s, d, w):
@@ -46,4 +50,4 @@ class BFGraph:
         return self.nodes
     
     def GetPrecedentNodes(self, v):
-        return self.nodes[v]
+        return self.predecssors[v] if v in self.predecssors else []
