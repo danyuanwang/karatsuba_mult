@@ -1,15 +1,14 @@
 import array
 from bfgraph import INFPATH 
 class CacheA:
-    def __init__(self, m, n):
-        self.c = m + 1
-        self.r = n
+    def __init__(self, n):
+        self.l = n
         self.cacheA = array.array('i')
-        self.cacheA.extend((INFPATH,) * self.c * self.r)
+        self.cacheA.extend((INFPATH,) * self.l *2 )
 
-    def GetFromCache(self, i, v):
-        return self.cacheA[i * self.r + v]
+    def GetFromCache(self, j, v):
+        return self.cacheA[ (j & 0x1 ) * self.l+ v]
 
-    def SetToCache(self, i, v, value):
-        self.cacheA[i * self.r + v] = value
+    def SetToCache(self, j, v, value):
+        self.cacheA[ (j & 0x1 ) * self.l+ v] = value
         
