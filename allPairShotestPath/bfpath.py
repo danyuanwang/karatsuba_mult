@@ -2,6 +2,8 @@ import array
 from bfgraph import BFGraph, INFPATH 
 from cacheA import CacheA
 import time
+import multiprocessing
+
 class BFPath:
     def __init__(self, graph):
         self.graph = graph
@@ -48,6 +50,32 @@ class BFPath:
             if(shortest > t):
                 shortest = t
         print(s,shortest,negativeCycledetected)
+        return shortest, negativeCycledetected
+    
+    def GetShortestPathFromProcess(self,s, rdic):
+        return_dict[s] = self.GetShortestPathFrom(s)
+
+    def GetShortestPathOfAllMP(self):
+        
+        shortest = INFPATH
+        negativeCycledetected = False
+        jobs = []
+        
+        return_dic = multiprocessing.Manager().dict()
+        for s in self.graph.GetAllNodes():
+            p = multiprocessing.Process(target = self.GetShortestPathFromProcess, args=(s, return_dic))
+            jobs.append(p)
+            p.start()
+        for proc in jobs:
+            proc.join()
+        for r in return_dic:
+            t = return_dic[r][0]
+            neg = return_dic[r][1]
+            if(shortest > t):
+                shortest = t
+            if(neg == True ):
+                negativeCycledetected = neg
+
         return shortest, negativeCycledetected
 
 
