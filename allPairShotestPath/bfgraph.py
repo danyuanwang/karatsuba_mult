@@ -28,7 +28,7 @@ class BFGraph:
                 else:
                     self.predecssors[v] = [s]
                 self.nodes.add(s)
-                self.nodes.add(v)
+                #self.nodes.add(v)
 
 
 
