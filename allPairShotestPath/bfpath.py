@@ -32,7 +32,7 @@ class BFPath:
             if(stopEarly): break
 
 
-        #print(time.time()-startTime, stopEarly, shortest)
+        print(time.time()-startTime, stopEarly, shortest)
         negativeCycledetected = False
         for v in self.graph.GetAllNodes():
             #print (n-1, v, cacheA.GetFromCache(n-2, v), cacheA.GetFromCache(n-1, v))
