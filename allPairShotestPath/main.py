@@ -8,7 +8,7 @@ if __name__ == '__main__':
     bfpath = BFPath(graph)
 
     startTime = time.time()
-    answer, negativeCycledetected =bfpath.GetShortestPathOfAllMP()
+    answer, negativeCycledetected =bfpath.GetShortestPathOfAll()
 
     #Graph = Paths()
     #answer = Graph.NodeShortest()

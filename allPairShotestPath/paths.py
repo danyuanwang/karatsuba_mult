@@ -12,7 +12,7 @@ class Paths:
         self.data = {}
         self.parents = {}
         self.nodeCount = 1000
-        handle = open('set1.txt')
+        handle = open('set2.txt')
         firstline = True
         for line in handle:
             list = [int(v) for v in line.split()]
