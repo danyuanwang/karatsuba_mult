@@ -54,8 +54,9 @@ class BFPath:
                 shortest = t
             if negativeCycle == True:
                 negativeCycledetected = True
+                break
             #break
-        #print(s,shortest,negativeCycledetected)
+        print(s,shortest,negativeCycledetected)
         return shortest, negativeCycledetected
 
 
