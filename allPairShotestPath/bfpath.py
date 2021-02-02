@@ -55,7 +55,7 @@ class BFPath:
         negativeCycledetected = False
         #print(self.graph.GetAllNodes())
         for s in self.graph.GetAllNodes():
-            t, negativeCycle = self.GetShortestPathFrom(398)
+            t, negativeCycle = self.GetShortestPathFrom(s)
             if(shortest > t):
                 shortest = t
             if negativeCycle == True:
@@ -66,7 +66,7 @@ class BFPath:
         return shortest, negativeCycledetected
     
     def GetShortestPathFromProcess(self,s, rdic):
-        return_dict[s] = self.GetShortestPathFrom(s)
+        rdic[s] = self.GetShortestPathFrom(s)
 
     def GetShortestPathOfAllMP(self):
         shortest = INFPATH
