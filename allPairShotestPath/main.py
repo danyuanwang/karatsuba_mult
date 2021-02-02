@@ -4,7 +4,7 @@ from bfgraph import BFGraph
 import time
 
 if __name__ == '__main__':
-    graph = BFGraph('g1.txt')
+    graph = BFGraph('set3.txt')
     bfpath = BFPath(graph)
 
     startTime = time.time()

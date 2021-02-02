@@ -13,7 +13,7 @@ class BFPath:
         cacheA =  CacheA(self.graph.GetNumOfNode())
         n = self.graph.GetNumOfNode()
         startTime = time.time()
-        for i in range(n + 1):
+        for i in range(n - 1):
             stopEarly = True
             for v in self.graph.GetAllNodes():
                 if(s == v): 
@@ -21,26 +21,29 @@ class BFPath:
                 elif(i == 0): 
                     cacheA.SetToCache(i, v,INFPATH)
                 else:
-                    shortest=cacheA.GetFromCache(i-1, v)
-                    
+                    r = cacheA.GetFromCache(i-1, v)
                     for w in self.graph.GetPrecedentNodes(v):
-                        t = cacheA.GetFromCache(i-1, w) + self.graph.GetEdge(w, v)
-                        if(shortest > t) : shortest = t
-                    #print("short", shortest, s, v, i)
-                    cacheA.SetToCache(i, v,shortest)
+                        t = cacheA.GetFromCache(i-1, w)
+                        d = self.graph.GetEdge(w, v)
+                        if(t!= INFPATH and d != INFPATH and r > (t + d)) : 
+                            r = t + d
+                            if(shortest > r): shortest = r
+                    cacheA.SetToCache(i, v, r)
+                            #print("short:", s,w,v, shortest, i)
 
                 if(cacheA.GetFromCache(i-1, v) != cacheA.GetFromCache(i, v)) : 
                     stopEarly = False
+
             if(stopEarly): break
 
 
         print(time.time()-startTime, stopEarly, shortest)
+
         negativeCycledetected = False
         if (not stopEarly):
-            
             for v in self.graph.GetAllNodes():
                 #print (n-1, v, cacheA.GetFromCache(n-2, v), cacheA.GetFromCache(n-1, v))
-                if(cacheA.GetFromCache(n, v) != cacheA.GetFromCache(n-1, v)):
+                if(cacheA.GetFromCache(n -2, v) != cacheA.GetFromCache(n-1, v)):
                     negativeCycledetected = True
                     break
         #print("result              ", shortest, negativeCycledetected)
@@ -52,22 +55,20 @@ class BFPath:
         negativeCycledetected = False
         #print(self.graph.GetAllNodes())
         for s in self.graph.GetAllNodes():
-            print(s)
-            t, negativeCycle = self.GetShortestPathFrom(s)
+            t, negativeCycle = self.GetShortestPathFrom(398)
             if(shortest > t):
                 shortest = t
             if negativeCycle == True:
                 negativeCycledetected = True
                 break
             #break
-        print(s,shortest,negativeCycledetected)
+            print(s, shortest,negativeCycledetected)
         return shortest, negativeCycledetected
     
     def GetShortestPathFromProcess(self,s, rdic):
         return_dict[s] = self.GetShortestPathFrom(s)
 
     def GetShortestPathOfAllMP(self):
-        
         shortest = INFPATH
         negativeCycledetected = False
         jobs = []

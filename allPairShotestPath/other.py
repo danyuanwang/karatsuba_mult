@@ -13,20 +13,32 @@ class Graph:
         self.graph.append([u, v, w])  
           
     # utility function used to print the solution  
-    def printArr(self, dist):  
+    def findShortestArr(self, dist, predecssor):  
+        
+        shortest = dist[0]
         print("Vertex Distance from Source")  
+        v = 0
         for i in range(self.V):  
-            print("{0}\t\t{1}".format(i, dist[i]))  
+            if(shortest> dist[i]):
+                shortest = dist[i]
+                v = i
+        print("{0}\t\t{1}".format(v, dist[v]))  
+        while predecssor[v] != float("Inf") :
+            print(v, ":", dist[v])
+            v = predecssor[v]
+
+
+        return shortest
       
     # The main function that finds shortest distances from src to  
     # all other vertices using Bellman-Ford algorithm. The function  
     # also detects negative weight cycle  
     def BellmanFord(self, src):  
-  
         # Step 1: Initialize distances from src to all other vertices  
         # as INFINITE  
         dist = [float("Inf")] * self.V  
         dist[src] = 0
+        predecssor = [float("Inf")] * self.V  
   
   
         # Step 2: Relax all edges |V| - 1 times. A simple shortest  
@@ -39,6 +51,7 @@ class Graph:
             for u, v, w in self.graph:  
                 if dist[u] != float("Inf") and dist[u] + w < dist[v]:  
                         dist[v] = dist[u] + w  
+                        predecssor[v] = u
   
         # Step 3: check for negative-weight cycles. The above step  
         # guarantees shortest distances if graph doesn't contain  
@@ -48,22 +61,30 @@ class Graph:
         for u, v, w in self.graph:  
                 if dist[u] != float("Inf") and dist[u] + w < dist[v]:  
                         print("Graph contains negative weight cycle") 
-                        return
+                        return float("Inf")
                           
         # print all distance  
-        self.printArr(dist) 
+        return self.findShortestArr(dist, predecssor) 
+
 firstline = True
-handle = open("test.txt")
+nodeCount = 0
+edgeCount = 0
+handle = open("set3.txt")
 for line in handle:
     list = [int(v) for v in line.split()]
     if firstline:
-        #[nodeCount, edgeCount] = list
-        g = Graph(4)  
+        [nodeCount, edgeCount] = list
+        g = Graph(nodeCount)  
+        firstline = False
     else:
-        g.addEdge(list[0], list[1], list[2]) 
-  
+        g.addEdge(list[0]-1, list[1]-1, list[2]) 
+
+shortest = float("Inf")
 # Print the solution  
-g.BellmanFord(0)  
-  
+#for s in range(nodeCount-1):
+t = g.BellmanFord(398)  
+if(shortest> t): shortest = t
+#print(s,t, shortest)
+print(shortest)
 # Initially, Contributed by Neelam Yadav  
 # Later On, Edited by Himanshu Garg 
