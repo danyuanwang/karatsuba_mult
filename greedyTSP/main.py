@@ -12,11 +12,11 @@ def greedyTSP(link):
     while(len(unexplored.graph) > 0):
         dist = explored.explore(unexplored)
         totalDistance += dist
-        print(totalDistance)
+        #print(totalDistance)
         print(len(explored.graph))
 
     totalDistance += explored.dist(explored.currentNode, nodetemp)
     return totalDistance
 
 
-print("answer: ", greedyTSP("test.txt"))
+print("answer: ", greedyTSP("greedyTSP.txt"))

@@ -24,9 +24,11 @@ class Data:
         #loop all unexplored nodes
         for node in unexplored.graph:
             #test if closest
-            if self.dist(self.currentNode, node) < self.dist(self.currentNode, least):
+            leastDist = self.dist(self.currentNode, least)
+            nodeDist = self.dist(self.currentNode, node)
+            if nodeDist < leastDist:
                 least = node
-            elif self.dist(self.currentNode, node) == self.dist(self.currentNode, least):
+            elif math.abs(nodeDist - leastDist) < 0.0000001:
                 if(node.index < least.index):
                     least = node
         #explore the closest node
