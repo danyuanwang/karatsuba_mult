@@ -8,6 +8,6 @@ class Values:
         for i in range(self.n):
             self.values[i] = random.choice([True, False])
     def flip(self, index):
-        self.values[index] = not self.values[index]
+        self.values[index-1] = not self.values[index-1]
 
 

@@ -51,8 +51,6 @@ def runCase(array, data, S, j):
             min = shortestJ
     #then record it in the array
     array.set(j, S, min)
-    if(len(array.array)  % 1024 == 0):
-        print(sys.getsizeof(array.array))
     return min
 
-print(main("tsp.txt"))
+print(main("test.txt"))

@@ -28,12 +28,14 @@ class Data:
             nodeDist = self.dist(self.currentNode, node)
             if nodeDist < leastDist:
                 least = node
-            elif math.abs(nodeDist - leastDist) < 0.0000001:
+            elif nodeDist == leastDist:
                 if(node.index < least.index):
                     least = node
         #explore the closest node
         self.addNode(least)
         unexplored.removeNode(least)
+        print(tempCurrentNode)
+        print(least)
 
         return self.dist(tempCurrentNode, least)
             

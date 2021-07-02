@@ -11,6 +11,32 @@ class Cases:
             self.cases.append(res)
             self.size += 1
 
+        for j in range(5):
+            for i in range(1, self.size + 1):
+                print(j, i, len(self.cases)," init")
+                firstValueFlag = True
+                removeFlag = True
+                value = i
+                for case in self.cases:
+                    if i in case and firstValueFlag == True:
+                        firstValueFlag = False
+                    elif -i in case and firstValueFlag == True:
+                        firstValueFlag = False
+                        value = -i
+                    elif -value in case:
+                        removeFlag = False
+                        break
+                if removeFlag:
+                    for case in self.cases:
+                        if i in case:
+                            self.cases.remove(case)
+            
+
+
+                    
+
+
+
     #test one case in the set
     #true if the first value or the second value == true 
     #* negative indicates not
