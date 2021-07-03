@@ -4,7 +4,7 @@ import math
 import random
 def twoSAT(link):
     rules = Cases(link)
-    answer = Values(rules)
+    answer = Values(rules.size)
     for i in range(int(math.log(answer.n, 2))):
         answer.generate()
         for j in range(int((answer.n ** 2) * 2)):
@@ -16,4 +16,4 @@ def twoSAT(link):
             answer.flip(int(random.choice(rules.cases[result])))
     return False
 
-print(twoSAT("case6.txt"))
+print(twoSAT("case1.txt"))

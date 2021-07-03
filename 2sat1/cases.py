@@ -12,26 +12,24 @@ class Cases:
             self.size += 1
 
         for j in range(5):
-            removableValues = []
-            absRemovableValues = []
-            counter = 0
-            for case in self.cases:
-                counter += 1
-                print(j, counter,  len(self.cases)," init")
-                for value in case:
-                    if abs(value) not in absRemovableValues:
-                        removableValues.append(value)
-                        absRemovableValues.append(abs(value))
-                    else:
-                        if value not in removableValues:
-                            removableValues.remove(-value)
-                            absRemovableValues.remove(abs(value))
-            
-            for case in self.cases:
-                for value in case:
-                    if value in removableValues:
-                        self.cases.remove(case)
+            for i in range(1, self.size + 1):
+                print(j, i, len(self.cases)," init")
+                firstValueFlag = True
+                removeFlag = True
+                value = i
+                for case in self.cases:
+                    if i in case and firstValueFlag == True:
+                        firstValueFlag = False
+                    elif -i in case and firstValueFlag == True:
+                        firstValueFlag = False
+                        value = -i
+                    elif -value in case:
+                        removeFlag = False
                         break
+                if removeFlag:
+                    for case in self.cases:
+                        if i in case:
+                            self.cases.remove(case)
             
 
 
