@@ -11,7 +11,7 @@ class Cases:
             self.cases.append(res)
             self.size += 1
 
-        for j in range(5):
+        for j in range(100):
             removableValues = []
             absRemovableValues = []
             counter = 0
@@ -23,9 +23,9 @@ class Cases:
                         removableValues.append(value)
                         absRemovableValues.append(abs(value))
                     else:
-                        if value not in removableValues:
+                        if -value in removableValues:
                             removableValues.remove(-value)
-                            absRemovableValues.remove(abs(value))
+                            #absRemovableValues.remove(abs(value))
             
             for case in self.cases:
                 for value in case:

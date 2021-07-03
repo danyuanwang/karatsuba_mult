@@ -16,4 +16,4 @@ def twoSAT(link):
             answer.flip(int(random.choice(rules.cases[result])))
     return False
 
-print(twoSAT("case6.txt"))
+print(twoSAT("case1.txt"))
