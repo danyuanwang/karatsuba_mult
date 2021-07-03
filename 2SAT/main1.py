@@ -37,10 +37,10 @@ def twoSAT(link):
                 elif -value in case:
                     removeFlag = False
                     break
-                if removeFlag:
-                    for case in cases:
-                        if i in case:
-                            cases.remove(case)
+            if removeFlag:
+                for case in cases:
+                    if i in case:
+                        cases.remove(case)
     size = len(cases)
     values = [False] * size
     print("size:", size)
